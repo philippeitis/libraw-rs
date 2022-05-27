@@ -6,6 +6,7 @@ pub use self::image::ProcessedImage;
 pub use self::processor::Processor;
 pub use self::rawimage::RawImage;
 pub use self::sizes::Sizes;
+pub use self::thumbnail::ThumbnailFormat;
 
 mod bit_depth;
 mod error;
