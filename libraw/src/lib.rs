@@ -13,3 +13,4 @@ mod image;
 mod processor;
 mod rawimage;
 mod sizes;
+mod thumbnail;

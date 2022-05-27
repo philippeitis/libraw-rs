@@ -2,6 +2,7 @@ use std::mem;
 
 use crate::{BitDepth, Error, ProcessedImage, RawImage, Result};
 use libraw_sys as sys;
+use crate::thumbnail::ImagePreview;
 
 pub struct Processor {
     pub(crate) inner: *mut sys::libraw_data_t,
@@ -20,6 +21,15 @@ impl Processor {
         Error::check(unsafe { sys::libraw_unpack(self.inner) })?;
 
         Ok(())
+    }
+
+    fn thumbnail(&self, buf: &[u8]) -> Result<ImagePreview> {
+        Error::check(unsafe {
+            sys::libraw_open_buffer(self.inner, buf.as_ptr() as *const _, buf.len())
+        })?;
+        Error::check(unsafe { sys::libraw_unpack_thumb(self.inner) })?;
+
+        Ok(unsafe { ImagePreview::from_raw(&(*self.inner).thumbnail)})
     }
 
     pub fn decode(self, buf: &[u8]) -> Result<RawImage> {
