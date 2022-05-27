@@ -23,7 +23,7 @@ impl Processor {
         Ok(())
     }
 
-    fn thumbnail(&self, buf: &[u8]) -> Result<ImagePreview> {
+    pub fn thumbnail(&self, buf: &[u8]) -> Result<ImagePreview> {
         Error::check(unsafe {
             sys::libraw_open_buffer(self.inner, buf.as_ptr() as *const _, buf.len())
         })?;
