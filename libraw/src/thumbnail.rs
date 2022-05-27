@@ -3,6 +3,7 @@ use std::ops::Deref;
 use std::slice;
 use libraw_sys as sys;
 
+#[derive(Eq, PartialEq, Debug)]
 pub enum ThumbnailFormat {
     Unknown,
     Jpeg,
